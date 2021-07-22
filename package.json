@@ -1,0 +1,24 @@
+{
+  "name": "alura_timer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gabriel-bassani/alura_timer.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gabriel-bassani/alura_timer/issues"
+  },
+  "homepage": "https://github.com/gabriel-bassani/alura_timer#readme",
+  "dependencies": {
+    "electron": "^1.6.1",
+    "moment": "^2.29.1"
+  }
+}
