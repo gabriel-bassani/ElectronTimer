@@ -1,11 +1,14 @@
+const {ipcRenderer} = require('electron');
 const moment = require('moment');
 let segundos;
-
+let timer;
+let tempo;
 module.exports = {
     iniciar(elemento){
-        let tempo = moment.duration(elemento.textContent);
+        tempo = moment.duration(elemento.textContent);
         segundos = tempo.asSeconds();
-        setInterval(() => {
+        clearInterval(timer);
+        timer = setInterval(() => {
             segundos++;
             elemento.textContent = this.segundosParaTempo(segundos);
         }, 1000)
@@ -13,7 +16,8 @@ module.exports = {
     segundosParaTempo(segundos){
         return moment().startOf('day').seconds(segundos).format("HH:mm:ss");
     },
-    parar(){
-
+    parar(curso){
+        clearInterval(timer);
+        ipcRenderer.send('curso-parado', curso, this.segundosParaTempo(segundos));
     }
 }

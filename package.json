@@ -19,6 +19,7 @@
   "homepage": "https://github.com/gabriel-bassani/alura_timer#readme",
   "dependencies": {
     "electron": "^1.6.1",
+    "jsonfile-promised": "0.0.1",
     "moment": "^2.29.1"
   }
 }
