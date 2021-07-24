@@ -10,6 +10,10 @@ let botaoAdicionar = document.querySelector('.botao-adicionar');
 let campoAdicionar = document.querySelector('.campo-adicionar');
 
 botaoAdicionar.addEventListener('click', function(){
+    if(campoAdicionar.value == ''){
+        console.log('Não posso adicionar um curso com nome vazio');
+        return;
+    }
     let novoCurso = campoAdicionar.value;
     curso.textContent = novoCurso;
     tempo.textContent = '00:00:00';
@@ -32,19 +36,39 @@ botaoPlay.addEventListener('click', function(){
     if(play){
         timer.parar(curso.textContent);
         play = false;
+        new Notification('Timer', {
+            body: 'Timer foi pausado',
+            icon: 'img/stop-button.png'
+        });
+
     }
     else{
         timer.iniciar(tempo);
         play = true;
+        new Notification('Timer', {
+            body: 'Timer foi iniciado',
+            icon: 'img/play-button.png'
+        });
+
     }
     imgs = imgs.reverse();
     botaoPlay.src = imgs[0];
 });
 
 ipcRenderer.on('curso-trocado', (event, nomeCurso) => {
+    timer.parar(curso.textContent);
     data.pegaDadosCurso(nomeCurso)
         .then((dados) => {
             tempo.textContent = dados.tempo;
         })
+        .catch((err) => {
+            console.log('O curso ainda não possui um JSON');
+            tempo.textContent = "00:00:00";
+        })
     curso.textContent = nomeCurso;
+});
+ipcRenderer.on('atalho-iniciar-parar', () => {
+    console.log('Atalho no renderer process');
+    let click = new MouseEvent('click');
+    botaoPlay.dispatchEvent(click);
 });

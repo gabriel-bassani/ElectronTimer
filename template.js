@@ -1,6 +1,5 @@
 // template.js
 
-const { segundosParaTempo } = require('./app/js/timer');
 const data = require('./data');
 const {ipcMain} = require('electron');
 
@@ -56,7 +55,8 @@ module.exports = {
             label: 'Window',
             submenu: [
                 {
-                    role: 'minimize'
+                    role: 'minimize',
+                    accelerator: 'CmdOrCtrl+M'
                 },
                 {
                     role: 'close'
@@ -70,7 +70,8 @@ module.exports = {
                     label: 'Sobre o Alura Timer',
                     click: () => {
                         ipcMain.emit('abrir-janela-sobre');
-                    }
+                    },
+                    accelerator: 'CmdOrCtrl+I'
                 }
             ]
         }];

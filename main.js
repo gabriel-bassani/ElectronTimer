@@ -1,4 +1,4 @@
-const {app, BrowserWindow, ipcMain, Tray, Menu} = require('electron');
+const {app, BrowserWindow, ipcMain, Tray, Menu, globalShortcut} = require('electron');
 const { pegaNomesCursos } = require('./data');
 const data = require('./data');
 const templateGenerator = require('./template');
@@ -22,8 +22,11 @@ app.on('ready', () => {
     let menuPrincipal = Menu.buildFromTemplate(templateMenu);
     Menu.setApplicationMenu(menuPrincipal);
 
-    mainWindow.openDevTools();
+    //mainWindow.openDevTools();
     mainWindow.loadURL(`file://${__dirname}/app/index.html`);
+    globalShortcut.register('CmdOrCtrl+Shift+S', () => {
+        mainWindow.send('atalho-iniciar-parar');
+    });
 });
 
 app.on('window-all-closed', () => {
